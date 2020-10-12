@@ -75,7 +75,7 @@ def get_posting_details(posting):
         # Get the location city
         location = response['location']['city']
         # Get the contract type
-        contract_type = response['customField']['1']['valueLabel']
+        contract_type = response['customField'][1]['valueLabel']
         '''for element in response['customField']:
             if element['fieldLabel'] == "Contract Type":
                 contract_type = element['valueLabel']'''

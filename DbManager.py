@@ -21,6 +21,3 @@ def find(id):
 
 def find_all():
     return collection.find()
-
-
-print(db.list_collection_names())

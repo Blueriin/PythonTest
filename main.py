@@ -34,11 +34,11 @@ def update_db():
             # Check if a posting is already in the database
             if posting['id'] in postings_ids:
                 # If yes, update it and remove its id from the postings_to_delete list because it is still an available job
-                if DbManager.update({id: posting[id]}, posting_document):
-                    print(f'Posting with id {posting[id]} updated.\n')
+                if DbManager.update({id: posting["id"]}, {'$set': posting_document}):
+                    print(f'Posting with id {posting["id"]} updated.\n')
                 else:
-                    print(f'Posting with id {posting[id]} could not be updated.\n')
-                postings_to_delete.remove(posting[id])
+                    print(f'Posting with id {posting["id"]} could not be updated.\n')
+                postings_to_delete.remove(posting["id"])
             else:
                 # Otherwise add it to the postings to be inserted in the database
                 postings_to_insert.append(posting_document)
@@ -60,7 +60,7 @@ def update_db():
     inserted_postings = DbManager.insert_all(postings_to_insert)
     # Check if the postings were correctly inserted
     if inserted_postings.acknowledged:
-        print(f'{inserted_postings.inserted_ids.len} postings inserted.\n')
+        print(f'{len(inserted_postings.inserted_ids)} postings inserted.\n')
     else:
         print(f'Posting with ids {inserted_postings.inserted_ids} could not be inserted.\n')
 
